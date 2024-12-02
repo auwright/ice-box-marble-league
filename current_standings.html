@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ice Box Marble League - League Standings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ice Box Marble League</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="current_standings.html">Current Standings</a>
+    </nav>
+    <div class="content">
+        <div class="section">
+            <h2>Current Standings</h2>
+            <p>Here's how the teams are performing in the league:</p>
+            <table id="standingsTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Team</th>
+                        <th>Points</th>
+                        <th>Medals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Austin</td>
+                        <td>15</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jake</td>
+                        <td>10</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Christian</td>
+                        <td>20</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Shane</td>
+                        <td>5</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Jason</td>
+                        <td>30</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Logan</td>
+                        <td>25</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Ronnie</td>
+                        <td>12</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Heather</td>
+                        <td>8</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Nana</td>
+                        <td>18</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Charlee</td>
+                        <td>22</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Ice Box Marble League. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to sort the table rows based on points (descending)
+        function sortTable() {
+            const table = document.getElementById("standingsTable");
+            const rows = Array.from(table.querySelectorAll('tbody tr')); // Get all rows in tbody
+
+            // Sort the rows based on the points column (index 2)
+            rows.sort((rowA, rowB) => {
+                const pointsA = parseInt(rowA.cells[2].textContent, 10); // Convert points to number
+                const pointsB = parseInt(rowB.cells[2].textContent, 10); // Convert points to number
+                return pointsB - pointsA; // Sort in descending order (highest to lowest)
+            });
+
+            // Re-insert the sorted rows back into the table body
+            const tbody = table.querySelector('tbody');
+            rows.forEach(row => tbody.appendChild(row)); // Append each sorted row
+
+            // Update ranks (first column) after sorting
+            updateRanks();
+        }
+
+        // Function to update the ranks after sorting
+        function updateRanks() {
+            const rows = document.querySelectorAll("#standingsTable tbody tr");
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1; // Update the rank column (first column)
+            });
+        }
+
+        // Initialize sorting when the page loads
+        window.onload = function() {
+            sortTable();  // Sort the table when the page is loaded
+        };
+    </script>
+</body>
+</html>
+
+
+
+
+
+
