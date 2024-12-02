@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ice Box Marble League</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .countdown {
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,18 +24,54 @@
     <div class="content">
         <div class="section">
             <h2>League Overview</h2>
-            <p>Welcome to the Ice Box Marble League! Check out marble event results and see how you're doing in the standings! Historical records avaialable too.</p>
+            <p>Welcome to the Ice Box Marble League! Check out marble event results and see how you're doing in the standings! Historical records available too.</p>
             <h3>Helpful Links</h3>
             <p>For more information go here</p>
-	        <ul>
+            <ul>
                 <li><a href="https://www.youtube.com/@JellesMarbleRuns">Jelle's Youtube Page (Events & Schedule)</a></li>
                 <li><a href="https://jellesmarbleruns.fandom.com/wiki/Jelle%27s_Marble_Runs_Wiki">Jelle's Marble Runs Wiki</a></li>
-		        <li><a href="https://jellesmarbleruns.com/">Jelle's Marble Runs Official Website</a></li>
+                <li><a href="https://jellesmarbleruns.com/">Jelle's Marble Runs Official Website</a></li>
             </ul>
+        </div>
+        <div class="section">
+            <h3>Upcoming Event Countdown</h3>
+            <p>The next big event is just around the corner! Countdown below:</p>
+            <p id="countdown" class="countdown">Loading countdown...</p>
         </div>
     </div>
     <footer>
         <p>&copy; Ice Box Marble League. All rights reserved.</p>
     </footer>
+    <script>
+        // Countdown Timer
+        function startCountdown(targetDate) {
+            const countdownElement = document.getElementById("countdown");
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance <= 0) {
+                    countdownElement.textContent = "The event has started!";
+                    clearInterval(timerInterval);
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+
+            updateCountdown(); // Run immediately
+            const timerInterval = setInterval(updateCountdown, 1000);
+        }
+
+        // Set the target date and time for the countdown
+        const targetDate = new Date("2024-12-02T08:00:00").getTime(); // Example: Dec 25, 2024 at 12:00 PM
+        startCountdown(targetDate);
+    </script>
 </body>
 </html>
