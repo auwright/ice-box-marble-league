@@ -37,6 +37,7 @@
         <div class="section">
             <h3>Upcoming Event Countdown</h3>
             <p>Event videos are posted on Jelle's Marble Runs Youtube Channel at 1600 UTC. Timer counts down to 0800 AM PT.</p>
+            <p id="current-utc-time" style="font-weight: bold;">Current UTC Time: Loading...</p>
             <p>Next Event: E12 - Snow Tubing</p>
             <p>Countdown below:</p>
             <p id="countdown" class="countdown">Loading countdown...</p>
@@ -72,9 +73,24 @@
             const timerInterval = setInterval(updateCountdown, 1000);
         }
 
+        // Display Current UTC Time
+        function updateCurrentUtcTime() {
+            const utcTimeElement = document.getElementById("current-utc-time");
+
+            function updateTime() {
+                const now = new Date();
+                const utcTime = now.toUTCString();
+                utcTimeElement.textContent = `Current UTC Time: ${utcTime}`;
+            }
+
+            updateTime(); // Run immediately
+            setInterval(updateTime, 1000); // Update every second
+        }
+
         // Set the target date and time for the countdown
-        const targetDate = new Date("2024-12-22T08:00:00").getTime(); // Example: Dec 25, 2024 at 12:00 PM
+        const targetDate = new Date("2024-12-22T08:00:00").getTime();
         startCountdown(targetDate);
+        updateCurrentUtcTime();
     </script>
 </body>
 </html>
