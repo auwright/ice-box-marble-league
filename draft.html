@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ice Box Marble League - Draft Board</title>
+  <title>Ice Box Marble League - Historical Stats</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     table {
@@ -41,7 +41,7 @@
 </head>
 <body>
   <header>
-    <h1>Ice Box Marble League Draft Board</h1>
+    <h1>Ice Box Marble League Historical Stats</h1>
   </header>
 
   <nav>
@@ -54,8 +54,8 @@
 
   <div class="content">
     <div class="section">
-      <h2>IBML Draft Board</h2>
-      <p>See draft results here.</p>
+      <h2>Top Captains</h2>
+      <p>Explore the medal counts of the top captains in the Ice Box Marble League history.</p>
 
       <table>
         <thead>
@@ -92,7 +92,6 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // ✅ Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDKH4eZVbKSNsL3k2_5S_E-Mey_349Qwx0",
       authDomain: "ibml-draft.firebaseapp.com",
@@ -117,44 +116,65 @@
       "Raspberry Racers"
     ];
 
-    document.querySelectorAll('.team-dropdown').forEach(async dropdown => {
-      const row = dropdown.closest('tr');
-      const pick = row.getAttribute('data-pick');
+    const dropdowns = document.querySelectorAll('.team-dropdown');
 
-      const placeholder = document.createElement('option');
-      placeholder.value = "";
-      placeholder.textContent = "Select Team";
-      placeholder.disabled = true;
-      dropdown.appendChild(placeholder);
+    async function initializeDraftBoard() {
+      for (let i = 0; i < dropdowns.length; i++) {
+        const dropdown = dropdowns[i];
+        const pick = (i + 1).toString();
+        const row = dropdown.closest('tr');
 
-      teamOptions.forEach(team => {
-        const option = document.createElement('option');
-        option.value = team;
-        option.textContent = team;
-        dropdown.appendChild(option);
-      });
+        // Build dropdown
+        const placeholder = document.createElement('option');
+        placeholder.value = "";
+        placeholder.textContent = "Select Team";
+        placeholder.disabled = true;
+        dropdown.appendChild(placeholder);
 
-      try {
-        const doc = await db.collection('draftPicks').doc(pick).get();
-        if (doc.exists && doc.data().team) {
-          dropdown.value = doc.data().team;
-        } else {
-          dropdown.selectedIndex = 0;
+        teamOptions.forEach(team => {
+          const option = document.createElement('option');
+          option.value = team;
+          option.textContent = team;
+          dropdown.appendChild(option);
+        });
+
+        // Load from Firestore
+        try {
+          const doc = await db.collection('draftPicks').doc(pick).get();
+          if (doc.exists && doc.data().team) {
+            dropdown.value = doc.data().team;
+          }
+        } catch (error) {
+          console.error(`Error loading pick ${pick}:`, error);
         }
-      } catch (error) {
-        console.error(`Error loading pick ${pick}:`, error);
       }
 
+      updateDropdownLocks();
+    }
+
+    function updateDropdownLocks() {
+      dropdowns.forEach((dropdown, i) => {
+        if (i === 0) {
+          dropdown.disabled = false; // First pick always enabled
+        } else {
+          const prevValue = dropdowns[i - 1].value;
+          dropdown.disabled = prevValue === "";
+        }
+      });
+    }
+
+    dropdowns.forEach((dropdown, i) => {
+      const pick = (i + 1).toString();
       dropdown.addEventListener('change', async () => {
         try {
           await db.collection('draftPicks').doc(pick).set({ team: dropdown.value });
+          updateDropdownLocks();
         } catch (error) {
           console.error(`Error saving pick ${pick}:`, error);
         }
       });
     });
 
-    // Reset button functionality
     document.getElementById('reset-btn').addEventListener('click', async () => {
       const confirmReset = confirm("Are you sure you want to reset all picks?");
       if (!confirmReset) return;
@@ -170,8 +190,11 @@
         }
       }
 
+      updateDropdownLocks();
       alert("All draft picks have been reset.");
     });
+
+    initializeDraftBoard();
   </script>
 </body>
 </html>
