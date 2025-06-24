@@ -32,6 +32,11 @@
       padding: 5px;
       font-size: 1em;
     }
+    #reset-btn {
+      margin: 20px 0;
+      padding: 10px 20px;
+      font-size: 1em;
+    }
   </style>
 </head>
 <body>
@@ -61,59 +66,20 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Add data-pick="X" for Firestore lookup -->
-          <tr data-pick="1">
-            <td>1</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="2">
-            <td>2</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="3">
-            <td>3</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="4">
-            <td>4</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="5">
-            <td>5</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="6">
-            <td>6</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="7">
-            <td>7</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="8">
-            <td>8</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="9">
-            <td>9</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
-          <tr data-pick="10">
-            <td>10</td>
-            <td>Name</td>
-            <td><select class="team-dropdown"></select></td>
-          </tr>
+          <tr data-pick="1"><td>1</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="2"><td>2</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="3"><td>3</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="4"><td>4</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="5"><td>5</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="6"><td>6</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="7"><td>7</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="8"><td>8</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="9"><td>9</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="10"><td>10</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
         </tbody>
       </table>
+
+      <button id="reset-btn">Reset Draft Picks</button>
     </div>
   </div>
 
@@ -126,7 +92,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // 🔥 Replace with your Firebase config
+    // ✅ Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDKH4eZVbKSNsL3k2_5S_E-Mey_349Qwx0",
       authDomain: "ibml-draft.firebaseapp.com",
@@ -155,14 +121,12 @@
       const row = dropdown.closest('tr');
       const pick = row.getAttribute('data-pick');
 
-      // Add placeholder
       const placeholder = document.createElement('option');
       placeholder.value = "";
       placeholder.textContent = "Select Team";
       placeholder.disabled = true;
       dropdown.appendChild(placeholder);
 
-      // Populate dropdown options
       teamOptions.forEach(team => {
         const option = document.createElement('option');
         option.value = team;
@@ -170,7 +134,6 @@
         dropdown.appendChild(option);
       });
 
-      // Load from Firestore
       try {
         const doc = await db.collection('draftPicks').doc(pick).get();
         if (doc.exists && doc.data().team) {
@@ -182,16 +145,32 @@
         console.error(`Error loading pick ${pick}:`, error);
       }
 
-      // Save to Firestore on change
       dropdown.addEventListener('change', async () => {
         try {
-          await db.collection('draftPicks').doc(pick).set({
-            team: dropdown.value
-          });
+          await db.collection('draftPicks').doc(pick).set({ team: dropdown.value });
         } catch (error) {
           console.error(`Error saving pick ${pick}:`, error);
         }
       });
+    });
+
+    // Reset button functionality
+    document.getElementById('reset-btn').addEventListener('click', async () => {
+      const confirmReset = confirm("Are you sure you want to reset all picks?");
+      if (!confirmReset) return;
+
+      for (let pick = 1; pick <= 10; pick++) {
+        try {
+          await db.collection('draftPicks').doc(String(pick)).delete();
+          const row = document.querySelector(`tr[data-pick="${pick}"]`);
+          const dropdown = row.querySelector('select');
+          dropdown.selectedIndex = 0;
+        } catch (err) {
+          console.error(`Failed to delete pick ${pick}:`, err);
+        }
+      }
+
+      alert("All draft picks have been reset.");
     });
   </script>
 </body>
