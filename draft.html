@@ -32,6 +32,12 @@
       padding: 5px;
       font-size: 1em;
     }
+    .checkmark {
+      color: green;
+      font-size: 1.2em;
+      margin-left: 6px;
+      display: none;
+    }
     #reset-btn {
       margin: 20px 0;
       padding: 10px 20px;
@@ -54,7 +60,7 @@
 
   <div class="content">
     <div class="section">
-      <h2>Draft Board</h2>
+      <h2>Top Captains</h2>
       <p>See draft results here.</p>
 
       <table>
@@ -66,16 +72,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr data-pick="1"><td>1</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="2"><td>2</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="3"><td>3</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="4"><td>4</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="5"><td>5</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="6"><td>6</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="7"><td>7</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="8"><td>8</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="9"><td>9</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
-          <tr data-pick="10"><td>10</td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="1"><td><span class="pick-number">1</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="2"><td><span class="pick-number">2</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="3"><td><span class="pick-number">3</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="4"><td><span class="pick-number">4</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="5"><td><span class="pick-number">5</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="6"><td><span class="pick-number">6</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="7"><td><span class="pick-number">7</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="8"><td><span class="pick-number">8</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="9"><td><span class="pick-number">9</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
+          <tr data-pick="10"><td><span class="pick-number">10</span><span class="checkmark">✅</span></td><td>Name</td><td><select class="team-dropdown"></select></td></tr>
         </tbody>
       </table>
 
@@ -122,6 +128,8 @@
       for (let i = 0; i < dropdowns.length; i++) {
         const dropdown = dropdowns[i];
         const pick = (i + 1).toString();
+        const row = dropdown.closest('tr');
+        const checkmark = row.querySelector('.checkmark');
 
         dropdown.innerHTML = "";
 
@@ -142,12 +150,15 @@
           const doc = await db.collection('draftPicks').doc(pick).get();
           if (doc.exists && doc.data().team) {
             dropdown.value = doc.data().team;
+            checkmark.style.display = 'inline';
           } else {
             dropdown.selectedIndex = 0;
+            checkmark.style.display = 'none';
           }
         } catch (error) {
           console.error(`Error loading pick ${pick}:`, error);
           dropdown.selectedIndex = 0;
+          checkmark.style.display = 'none';
         }
       }
 
@@ -168,8 +179,12 @@
     dropdowns.forEach((dropdown, i) => {
       const pick = (i + 1).toString();
       dropdown.addEventListener('change', async () => {
+        const row = dropdown.closest('tr');
+        const checkmark = row.querySelector('.checkmark');
+
         try {
           await db.collection('draftPicks').doc(pick).set({ team: dropdown.value });
+          checkmark.style.display = dropdown.value ? 'inline' : 'none';
           updateDropdownLocks();
         } catch (error) {
           console.error(`Error saving pick ${pick}:`, error);
@@ -186,7 +201,9 @@
           await db.collection('draftPicks').doc(String(pick)).delete();
           const row = document.querySelector(`tr[data-pick="${pick}"]`);
           const dropdown = row.querySelector('select');
+          const checkmark = row.querySelector('.checkmark');
           dropdown.selectedIndex = 0;
+          checkmark.style.display = 'none';
         } catch (err) {
           console.error(`Failed to delete pick ${pick}:`, err);
         }
