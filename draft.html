@@ -34,7 +34,6 @@
             background-color: #e9ecef;
         }
 
-        /* Medal-specific text colors */
         .gold {
             color: gold;
         }
@@ -44,7 +43,7 @@
         }
 
         .bronze {
-            color: #cd7f32; /* Bronze color */
+            color: #cd7f32;
         }
     </style>
 </head>
@@ -62,8 +61,8 @@
     <div class="content">
         <div class="section">
             <h2>IBML Draft</h2>
-            <p>Draft Order and Results.</>
-            <table>
+            <p>Draft Order and Results.</p>
+            <table id="draft-table">
                 <thead>
                     <tr>
                         <th>Pick Number</th>
@@ -75,47 +74,47 @@
                     <tr>
                         <td>1</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>5</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>6</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>7</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>8</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                     <tr>
                         <td>9</td>
                         <td>Name</td>
-                        <td>Name</td>
+                        <td class="team-pick-cell"></td>
                     </tr>
                 </tbody>
             </table>
@@ -124,6 +123,41 @@
     <footer>
         <p>&copy; 2024 Ice Box Marble League. All rights reserved.</p>
     </footer>
+
+    <script>
+        const marbleTeams = [
+            "Team Momo",
+            "Savage Speeders",
+            "O’rangers",
+            "Midnight Wisps",
+            "Green Ducks",
+            "Hazers",
+            "Raspberry Racers",
+            "Balls of Chaos",
+            "Team Galactic",
+            "Pinkies",
+            "Snowballs",
+            "Limers"
+        ];
+
+        const teamPickCells = document.querySelectorAll('.team-pick-cell');
+
+        teamPickCells.forEach(cell => {
+            const select = document.createElement('select');
+            const defaultOption = document.createElement('option');
+            defaultOption.textContent = "Select Team";
+            defaultOption.value = "";
+            select.appendChild(defaultOption);
+
+            marbleTeams.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team;
+                option.textContent = team;
+                select.appendChild(option);
+            });
+
+            cell.appendChild(select);
+        });
+    </script>
 </body>
 </html>
-
