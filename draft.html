@@ -1,89 +1,132 @@
-<!DOCTYPE html>
+<!DOCTYPE html>Add commentMore actions
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IBML Draft Picks</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Box Marble League - Historical Stats</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
-
     table, th, td {
       border: 1px solid #ddd;
     }
-
     th, td {
       text-align: center;
       padding: 10px;
     }
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tbody tr:hover {
+      background-color: #e9ecef;
+    }
+    select {
+      padding: 5px;
+      font-size: 1em;
+    }
   </style>
 </head>
 <body>
-  <h1>IBML Draft Picks</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Pick Number</th>
-        <th>Captain</th>
-        <th>Marble Team Pick</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Alice</td>
-        <td><select onchange="savePick(1, this)">
-          <option value="">Select Team</option>
-          <option>Team Momo</option>
-          <option>Savage Speeders</option>
-          <option>O’rangers</option>
-          <option>Midnight Wisps</option>
-          <option>Green Ducks</option>
-        </select></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Bob</td>
-        <td><select onchange="savePick(2, this)">
-          <option value="">Select Team</option>
-          <option>Team Momo</option>
-          <option>Savage Speeders</option>
-          <option>O’rangers</option>
-          <option>Midnight Wisps</option>
-          <option>Green Ducks</option>
-        </select></td>
-      </tr>
-      <!-- Repeat for more rows -->
-    </tbody>
-  </table>
+  <header>
+    <h1>Ice Box Marble League Historical Stats</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="draft.html">Draft Board</a>
+    <a href="current_standings.html">Current Standings</a>
+    <a href="previous_results.html">Previous Results</a>
+    <a href="historical_stats.html">Historical Stats</a>
+  </nav>
+
+  <div class="content">
+    <div class="section">
+      <h2>Top Captains</h2>
+      <p>Explore the medal counts of the top captains in the Ice Box Marble League history.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Draft Pick</th>
+            <th>Captain</th>
+            <th>Marble Team</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Name</td>
+            <td><select class="team-dropdown"></select></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Name</td>
+            <td><select class="team-dropdown"></select></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Name</td>
+            <td><select class="team-dropdown"></select></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Name</td>
+            <td><select class="team-dropdown"></select></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Name</td>
+            <td><select class="team-dropdown"></select></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Name</td>
+            <td><select class="team-dropdown"></select></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Name</td>
+            <td><select class="team-dropdown"></select></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Ice Box Marble League. All rights reserved.</p>
+  </footer>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbynvy_R2rJ8UePWssapiFkIEYKnc-N86lOh9LwJ4rasWCHab6U_63Ol4PIOpagKYA/exec";
+    // List of team options — customize as needed
+    const teamOptions = [
+      "Team Galactic",
+      "Savage Speeders",
+      "O'rangers",
+      "Midnight Wisps",
+      "Green Ducks",
+      "Crazy Cat's Eyes",
+      "Pinkies",
+      "Mellow Yellows"
+    ];
 
-    function savePick(pickNumber, selectElement) {
-      const marbleTeam = selectElement.value;
-
-      fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify({
-          pickNumber: pickNumber,
-          marbleTeam: marbleTeam
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => response.text())
-      .then(result => {
-        console.log("Saved:", result);
-      })
-      .catch(error => {
-        console.error("Error:", error);
+    // Fill each dropdown with the team list
+    document.querySelectorAll('.team-dropdown').forEach(dropdown => {
+      teamOptions.forEach(team => {
+        const option = document.createElement('option');
+        option.value = team;
+        option.textContent = team;
+        dropdown.appendChild(option);
       });
-    }
+    });
   </script>
 </body>
 </html>
