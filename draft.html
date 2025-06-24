@@ -106,27 +106,33 @@
   </footer>
 
   <script>
-    // List of team options — customize as needed
-    const teamOptions = [
-      "Team Galactic",
-      "Savage Speeders",
-      "O'rangers",
-      "Midnight Wisps",
-      "Green Ducks",
-      "Crazy Cat's Eyes",
-      "Pinkies",
-      "Mellow Yellows"
-    ];
+  const teamOptions = [
+    "Team Galactic",
+    "Savage Speeders",
+    "O'rangers",
+    "Midnight Wisps",
+    "Green Ducks",
+    "Crazy Cat's Eyes",
+    "Pinkies",
+    "Mellow Yellows"
+  ];
 
-    // Fill each dropdown with the team list
-    document.querySelectorAll('.team-dropdown').forEach(dropdown => {
-      teamOptions.forEach(team => {
-        const option = document.createElement('option');
-        option.value = team;
-        option.textContent = team;
-        dropdown.appendChild(option);
-      });
+  // Populate each dropdown
+  document.querySelectorAll('.team-dropdown').forEach(dropdown => {
+    const placeholder = document.createElement('option');
+    placeholder.value = "";
+    placeholder.textContent = "Select team";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    dropdown.appendChild(placeholder);
+
+    teamOptions.forEach(team => {
+      const option = document.createElement('option');
+      option.value = team;
+      option.textContent = team;
+      dropdown.appendChild(option);
     });
-  </script>
+  });
+</script>
 </body>
 </html>
