@@ -41,7 +41,7 @@
 </head>
 <body>
   <header>
-    <h1>Ice Box Marble League Historical Stats</h1>
+    <h1>Ice Box Marble League Draft Board</h1>
   </header>
 
   <nav>
@@ -49,13 +49,13 @@
     <a href="draft.html">Draft Board</a>
     <a href="current_standings.html">Current Standings</a>
     <a href="previous_results.html">Previous Results</a>
-    <a href="historical_stats.html">Historical Stats</a>
+    <a href="stats.html">Historical Stats</a>
   </nav>
 
   <div class="content">
     <div class="section">
-      <h2>Top Captains</h2>
-      <p>Explore the medal counts of the top captains in the Ice Box Marble League history.</p>
+      <h2>Draft Board</h2>
+      <p>See draft results here.</p>
 
       <table>
         <thead>
@@ -122,9 +122,9 @@
       for (let i = 0; i < dropdowns.length; i++) {
         const dropdown = dropdowns[i];
         const pick = (i + 1).toString();
-        const row = dropdown.closest('tr');
 
-        // Build dropdown
+        dropdown.innerHTML = "";
+
         const placeholder = document.createElement('option');
         placeholder.value = "";
         placeholder.textContent = "Select Team";
@@ -138,14 +138,16 @@
           dropdown.appendChild(option);
         });
 
-        // Load from Firestore
         try {
           const doc = await db.collection('draftPicks').doc(pick).get();
           if (doc.exists && doc.data().team) {
             dropdown.value = doc.data().team;
+          } else {
+            dropdown.selectedIndex = 0;
           }
         } catch (error) {
           console.error(`Error loading pick ${pick}:`, error);
+          dropdown.selectedIndex = 0;
         }
       }
 
@@ -155,7 +157,7 @@
     function updateDropdownLocks() {
       dropdowns.forEach((dropdown, i) => {
         if (i === 0) {
-          dropdown.disabled = false; // First pick always enabled
+          dropdown.disabled = false;
         } else {
           const prevValue = dropdowns[i - 1].value;
           dropdown.disabled = prevValue === "";
