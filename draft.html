@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ice Box Marble League - Historical Stats</title>
   <link rel="stylesheet" href="styles.css">
@@ -61,52 +61,53 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- Add data-pick="X" for Firestore lookup -->
+          <tr data-pick="1">
             <td>1</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="2">
             <td>2</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="3">
             <td>3</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="4">
             <td>4</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="5">
             <td>5</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="6">
             <td>6</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="7">
             <td>7</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="8">
             <td>8</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="9">
             <td>9</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
           </tr>
-          <tr>
+          <tr data-pick="10">
             <td>10</td>
             <td>Name</td>
             <td><select class="team-dropdown"></select></td>
@@ -120,35 +121,78 @@
     <p>&copy; 2024 Ice Box Marble League. All rights reserved.</p>
   </footer>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
   <script>
-  const teamOptions = [
-    "Team Galactic",
-    "Savage Speeders",
-    "O'rangers",
-    "Midnight Wisps",
-    "Green Ducks",
-    "Crazy Cat's Eyes",
-    "Pinkies",
-    "Mellow Yellows",
-    "Raspberry Racers"
-  ];
+    // 🔥 Replace with your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKH4eZVbKSNsL3k2_5S_E-Mey_349Qwx0",
+      authDomain: "ibml-draft.firebaseapp.com",
+      projectId: "ibml-draft",
+      storageBucket: "ibml-draft.firebasestorage.app",
+      messagingSenderId: "838059983974",
+      appId: "1:838059983974:web:2a62f1465e302ccde3d9a7"
+    };
 
-  // Populate each dropdown
-  document.querySelectorAll('.team-dropdown').forEach(dropdown => {
-    const placeholder = document.createElement('option');
-    placeholder.value = "";
-    placeholder.textContent = "Select team";
-    placeholder.disabled = true;
-    placeholder.selected = true;
-    dropdown.appendChild(placeholder);
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    teamOptions.forEach(team => {
-      const option = document.createElement('option');
-      option.value = team;
-      option.textContent = team;
-      dropdown.appendChild(option);
+    const teamOptions = [
+      "Team Galactic",
+      "Savage Speeders",
+      "O'rangers",
+      "Midnight Wisps",
+      "Green Ducks",
+      "Crazy Cat's Eyes",
+      "Pinkies",
+      "Mellow Yellows",
+      "Raspberry Racers"
+    ];
+
+    document.querySelectorAll('.team-dropdown').forEach(async dropdown => {
+      const row = dropdown.closest('tr');
+      const pick = row.getAttribute('data-pick');
+
+      // Add placeholder
+      const placeholder = document.createElement('option');
+      placeholder.value = "";
+      placeholder.textContent = "Select Team";
+      placeholder.disabled = true;
+      dropdown.appendChild(placeholder);
+
+      // Populate dropdown options
+      teamOptions.forEach(team => {
+        const option = document.createElement('option');
+        option.value = team;
+        option.textContent = team;
+        dropdown.appendChild(option);
+      });
+
+      // Load from Firestore
+      try {
+        const doc = await db.collection('draftPicks').doc(pick).get();
+        if (doc.exists && doc.data().team) {
+          dropdown.value = doc.data().team;
+        } else {
+          dropdown.selectedIndex = 0;
+        }
+      } catch (error) {
+        console.error(`Error loading pick ${pick}:`, error);
+      }
+
+      // Save to Firestore on change
+      dropdown.addEventListener('change', async () => {
+        try {
+          await db.collection('draftPicks').doc(pick).set({
+            team: dropdown.value
+          });
+        } catch (error) {
+          console.error(`Error saving pick ${pick}:`, error);
+        }
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
