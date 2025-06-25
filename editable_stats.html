@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Box Marble League - Historical Stats</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 10px;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+      background-color: #e9ecef;
+    }
+
+    .gold {
+      color: gold;
+    }
+
+    .silver {
+      color: silver;
+    }
+
+    .bronze {
+      color: #cd7f32;
+    }
+
+    td[contenteditable="true"] {
+      background-color: #fffbe6;
+      cursor: text;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ice Box Marble League Historical Stats</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="draft.html">Draft Board</a>
+    <a href="current_standings.html">Current Standings</a>
+    <a href="previous_results.html">Previous Results</a>
+    <a href="historical_stats.html">Historical Stats</a>
+  </nav>
+  <div class="content">
+    <div class="section">
+      <h2>Top Captains</h2>
+      <p>Explore the medal counts of the top captains in the Ice Box Marble League history.</p>
+      <table id="stats-table">
+        <thead>
+          <tr>
+            <th>Captain</th>
+            <th class="gold">Gold</th>
+            <th class="silver">Silver</th>
+            <th class="bronze">Bronze</th>
+            <th>Total Medals</th>
+            <th>Championships</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be inserted dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; Ice Box Marble League. All rights reserved.</p>
+  </footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKH4eZVbKSNsL3k2_5S_E-Mey_349Qwx0",
+      authDomain: "ibml-draft.firebaseapp.com",
+      projectId: "ibml-draft",
+      storageBucket: "ibml-draft.firebasestorage.app",
+      messagingSenderId: "838059983974",
+      appId: "1:838059983974:web:2a62f1465e302ccde3d9a7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const tableBody = document.querySelector('#stats-table tbody');
+
+    const fields = ["gold", "silver", "bronze", "total", "championships"];
+
+    function createRow(doc) {
+      const data = doc.data();
+      const tr = document.createElement("tr");
+      tr.dataset.id = doc.id;
+
+      const tdCaptain = document.createElement("td");
+      tdCaptain.textContent = doc.id;
+      tr.appendChild(tdCaptain);
+
+      fields.forEach(field => {
+        const td = document.createElement("td");
+        td.contentEditable = "true";
+        td.textContent = data[field] || 0;
+        td.dataset.field = field;
+
+        td.addEventListener("blur", async () => {
+          const newValue = parseInt(td.textContent) || 0;
+          try {
+            await db.collection("captainStats").doc(doc.id).update({
+              [field]: newValue
+            });
+
+            // Auto-update "total" if gold/silver/bronze edited
+            if (["gold", "silver", "bronze"].includes(field)) {
+              const row = td.parentElement;
+              const g = parseInt(row.children[1].textContent) || 0;
+              const s = parseInt(row.children[2].textContent) || 0;
+              const b = parseInt(row.children[3].textContent) || 0;
+              const total = g + s + b;
+              row.children[4].textContent = total;
+
+              await db.collection("captainStats").doc(doc.id).update({
+                total
+              });
+            }
+
+          } catch (error) {
+            console.error("Failed to update:", error);
+          }
+        });
+
+        tr.appendChild(td);
+      });
+
+      tableBody.appendChild(tr);
+    }
+
+    async function loadData() {
+      tableBody.innerHTML = "";
+      try {
+        const snapshot = await db.collection("captainStats").get();
+        snapshot.forEach(doc => createRow(doc));
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
