@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Box Marble League - League Standings</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .header-container {
+      position: relative;
+      background-color: #f5f5f5;
+    }
+
+    header h1 {
+      margin: 0;
+      padding: 20px;
+      font-size: 2em;
+      color: #004080;
+    }
+
+    .top-right-image {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: auto;
+      background: transparent;
+    }
+
+    nav {
+      background-color: #004080;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin-right: 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e0e0e0;
+    }
+
+    .gold-text {
+      color: gold;
+      font-weight: bold;
+    }
+
+    .silver-text {
+      color: silver;
+      font-weight: bold;
+    }
+
+    .bronze-text {
+      color: brown;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #f0f0f0;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container">
+    <header>
+      <h1>Ice Box Marble League Current Standings</h1>
+      <img src="logo.png" alt="League Logo" class="top-right-image">
+    </header>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="draft.html">Draft Board</a>
+    <a href="current_standings.html">Current Standings</a>
+    <a href="previous_results.html">Previous Results</a>
+    <a href="editable_stats.html">Historical Stats</a>
+  </nav>
+
+  <div class="content">
+    <div class="section">
+      <h2>Current Standings</h2>
+      <p>Here's how the teams are performing in the league:</p>
+      <table id="standingsTable">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+            <th>Medals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Team (Shane)</td><td>126</td><td>2</td></tr>
+          <tr><td>2</td><td>Team (Jason)</td><td>135</td><td>3</td></tr>
+          <tr><td>3</td><td>Team (Christian)</td><td>137</td><td>4</td></tr>
+          <tr><td>4</td><td>Team (Jake)</td><td>179</td><td>4</td></tr>
+          <tr><td>5</td><td>Team (Logan W)</td><td>125</td><td>2</td></tr>
+          <tr><td>6</td><td>Team (Austin)</td><td>137</td><td>3</td></tr>
+          <tr><td>6</td><td>Team (Logan V)</td><td>123</td><td>3</td></tr>
+          <tr><td>6</td><td>Team (Breah)</td><td>137</td><td>3</td></tr>
+          <tr><td>7</td><td>Team (Ronnie)</td><td>158</td><td>5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Current League Event Table</h2>
+      <p><span class="gold-text">G</span> = 1st Place, <span class="silver-text">S</span> = 2nd Place, <span class="bronze-text">B</span> = 3rd Place, & DNP = Did Not Podium</p>
+      <table id="largeTable">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Event 1</th><th>Event 2</th><th>Event 3</th><th>Event 4</th><th>Event 5</th><th>Event 6</th>
+            <th>Event 7</th><th>Event 8</th><th>Event 9</th><th>Event 10</th><th>Event 11</th><th>Event 12</th>
+            <th>Event 13</th><th>Event 14</th><th>Event 15</th><th>Event 16</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Add your data rows here, as shown previously -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Ice Box Marble League. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.onload = function () {
+      sortStandingsByPoints();
+      applyMedalText();
+    };
+
+    function sortStandingsByPoints() {
+      const table = document.getElementById("standingsTable");
+      const tbody = table.querySelector("tbody");
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+
+      rows.sort((a, b) => {
+        const pointsA = parseInt(a.cells[2].textContent.trim(), 10);
+        const pointsB = parseInt(b.cells[2].textContent.trim(), 10);
+        return pointsB - pointsA;
+      });
+
+      rows.forEach((row, index) => {
+        row.cells[0].textContent = index + 1;
+        tbody.appendChild(row);
+      });
+    }
+
+    function applyMedalText() {
+      const table = document.getElementById("largeTable");
+      const cells = table.querySelectorAll("td");
+
+      cells.forEach(cell => {
+        const text = cell.textContent.trim();
+        if (text === "G") cell.classList.add("gold-text");
+        else if (text === "S") cell.classList.add("silver-text");
+        else if (text === "B") cell.classList.add("bronze-text");
+      });
+    }
+  </script>
+</body>
+</html>
