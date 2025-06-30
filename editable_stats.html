@@ -76,7 +76,7 @@
   <div class="content">
     <div class="section">
       <h2>Top Captains</h2>
-      <p>Explore the medal counts of the top captains in the Ice Box Marble League history.</p>
+      <p>Explore the medal counts of captains in the history of the Ice Box Marble League.</p>
       <table id="stats-table">
         <thead>
           <tr>
@@ -86,6 +86,7 @@
             <th class="bronze">Bronze</th>
             <th>Total Medals</th>
             <th>Championships</th>
+            <th>Seasons</th>
           </tr>
         </thead>
         <tbody>
@@ -115,7 +116,7 @@
     const db = firebase.firestore();
     const tableBody = document.querySelector('#stats-table tbody');
 
-    const fields = ["gold", "silver", "bronze", "total", "championships"];
+    const fields = ["gold", "silver", "bronze", "total", "championships", "seasons"];
 
     function createRow(doc) {
       const data = doc.data();
