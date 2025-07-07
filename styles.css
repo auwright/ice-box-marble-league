@@ -18,6 +18,10 @@ header {
   position: relative; /* for hamburger + logo */
 }
 
+h1 {
+  margin: 0;
+}
+
 .top-right-image {
   position: absolute;
   top: 10px;
