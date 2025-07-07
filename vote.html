@@ -6,13 +6,13 @@
   <title>Ice Box Marble League - Vote</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    h1 {
-      margin-bottom: 10px;
+    .top-right-image {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: auto;
+      background: transparent;
     }
 
     form {
@@ -22,6 +22,7 @@
     label {
       display: block;
       margin: 8px 0;
+      font-size: 1.1em;
     }
 
     button {
@@ -37,36 +38,45 @@
 </head>
 <body>
   <header>
-    <h1>Vote for Your Favorite Marble Team!</h1>
+    <h1>Ice Box Marble League Vote</h1>
+    <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
   </header>
 
-  <form id="voteForm">
-    <label>
-      <input type="radio" name="voteOption" value="Blue Blizzards" required />
-      Blue Blizzards
-    </label>
-    <label>
-      <input type="radio" name="voteOption" value="Green Gliders" />
-      Green Gliders
-    </label>
-    <label>
-      <input type="radio" name="voteOption" value="Red Rockets" />
-      Red Rockets
-    </label>
-    <label>
-      <input type="radio" name="voteOption" value="Yellow Yetis" />
-      Yellow Yetis
-    </label>
-    <button type="submit">Submit Vote</button>
-  </form>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="draft.html">Draft Board</a>
+    <a href="current_standings.html">Current Standings</a>
+    <a href="previous_results.html">Previous Results</a>
+    <a href="editable_stats.html">Historical Stats</a>
+    <a href="vote.html">Vote</a>
+  </nav>
 
-  <p id="status"></p>
+  <div class="content">
+    <div class="section">
+      <h2>Vote for Your Favorite Marble Team</h2>
+      <p>Select your favorite team below and submit your vote. One vote per person, please!</p>
+
+      <form id="voteForm">
+        <label><input type="radio" name="voteOption" value="Blue Blizzards" required /> Blue Blizzards</label>
+        <label><input type="radio" name="voteOption" value="Green Gliders" /> Green Gliders</label>
+        <label><input type="radio" name="voteOption" value="Red Rockets" /> Red Rockets</label>
+        <label><input type="radio" name="voteOption" value="Yellow Yetis" /> Yellow Yetis</label>
+
+        <button type="submit">Submit Vote</button>
+      </form>
+
+      <p id="status"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Ice Box Marble League. All rights reserved.</p>
+  </footer>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script>
-    // ✅ Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDKH4eZVbKSNsL3k2_5S_E-Mey_349Qwx0",
       authDomain: "ibml-draft.firebaseapp.com",
