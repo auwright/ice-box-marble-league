@@ -1,107 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ice Box Marble League</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .countdown {
-            font-size: 1.5em;
-            color: #333;
-        }
-        .top-right-image {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          width: 100px;
-          height: auto;
-          background: transparent;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Box Marble League</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .top-right-image {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: auto;
+      background: transparent;
+    }
+
+    /* Simple Hamburger */
+    .hamburger {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      display: block;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .hamburger div {
+      width: 100%;
+      height: 4px;
+      background-color: #333;
+      margin: 5px 0;
+    }
+
+    /* Hidden nav by default */
+    nav {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 15px;
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 10px;
+      z-index: 1;
+    }
+
+    nav.open {
+      display: block;
+    }
+
+    nav a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .countdown {
+      font-size: 1.5em;
+      color: #333;
+    }
+
+    .content {
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Ice Box Marble League Home</h1>
-        <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
-    </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="draft.html">Draft Board</a>
-        <a href="current_standings.html">Current Standings</a>
-        <a href="previous_results.html">Previous Results</a>
-        <a href="editable_stats.html">Historical Stats</a>
-        <a href="vote.html">Vote</a>
-    </nav>
-    <div class="content">
-        <div class="section">
-            <h2>League Overview</h2>
-            <p>Welcome to the Ice Box Marble League! Check out marble event results and see how you're doing in the standings! Historical records available too.</p>
-            <h3>Helpful Links</h3>
-            <p>For more information go here</p>
-            <ul>
-                <li><a href="https://www.youtube.com/@JellesMarbleRuns">Jelle's Youtube Page (Events & Schedule)</a></li>
-                <li><a href="https://jellesmarbleruns.fandom.com/wiki/Jelle%27s_Marble_Runs_Wiki">Jelle's Marble Runs Wiki</a></li>
-                <li><a href="https://jellesmarbleruns.com/">Jelle's Marble Runs Official Website</a></li>
-            </ul>
-        </div>
-        <div class="section">
-            <h3>Upcoming Event Countdown</h3>
-            <p>Event videos are posted on Jelle's Marble Runs Youtube Channel at 1600 UTC. Timer counts down to 0800 AM PT.</p>
-            <p id="current-utc-time" style="font-weight: bold;">Current UTC Time: Loading...</p>
-            <p>Next Event: Marble League 2025 Opening Ceremony and E1 Swing Wave</p>
-            <p>Countdown below:</p>
-            <p id="countdown" class="countdown">Loading countdown...</p>
-        </div>
+  <header>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <footer>
-        <p>&copy; Ice Box Marble League. All rights reserved.</p>
-    </footer>
-    <script>
-        // Countdown Timer
-        function startCountdown(targetDate) {
-            const countdownElement = document.getElementById("countdown");
+    <h1>Ice Box Marble League Home</h1>
+    <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
+  </header>
 
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="draft.html">Draft Board</a>
+    <a href="current_standings.html">Current Standings</a>
+    <a href="previous_results.html">Previous Results</a>
+    <a href="editable_stats.html">Historical Stats</a>
+    <a href="vote.html">Vote</a>
+  </nav>
 
-                if (distance <= 0) {
-                    countdownElement.textContent = "The event has started!";
-                    clearInterval(timerInterval);
-                    return;
-                }
+  <div class="content">
+    <div class="section">
+      <h2>League Overview</h2>
+      <p>Welcome to the Ice Box Marble League! Check out marble event results and see how you're doing in the standings! Historical records available too.</p>
+      <h3>Helpful Links</h3>
+      <p>For more information go here</p>
+      <ul>
+        <li><a href="https://www.youtube.com/@JellesMarbleRuns">Jelle's Youtube Page (Events & Schedule)</a></li>
+        <li><a href="https://jellesmarbleruns.fandom.com/wiki/Jelle%27s_Marble_Runs_Wiki">Jelle's Marble Runs Wiki</a></li>
+        <li><a href="https://jellesmarbleruns.com/">Jelle's Marble Runs Official Website</a></li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3>Upcoming Event Countdown</h3>
+      <p>Event videos are posted on Jelle's Marble Runs Youtube Channel at 1600 UTC. Timer counts down to 0800 AM PT.</p>
+      <p id="current-utc-time" style="font-weight: bold;">Current UTC Time: Loading...</p>
+      <p>Next Event: Marble League 2025 Opening Ceremony and E1 Swing Wave</p>
+      <p>Countdown below:</p>
+      <p id="countdown" class="countdown">Loading countdown...</p>
+    </div>
+  </div>
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  <footer>
+    <p>&copy; Ice Box Marble League. All rights reserved.</p>
+  </footer>
 
-                countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-            }
+  <script>
+    // Simple hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
 
-            updateCountdown(); // Run immediately
-            const timerInterval = setInterval(updateCountdown, 1000);
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+
+    // Countdown Timer
+    function startCountdown(targetDate) {
+      const countdownElement = document.getElementById("countdown");
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+          countdownElement.textContent = "The event has started!";
+          clearInterval(timerInterval);
+          return;
         }
 
-        // Display Current UTC Time
-        function updateCurrentUtcTime() {
-            const utcTimeElement = document.getElementById("current-utc-time");
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            function updateTime() {
-                const now = new Date();
-                const utcTime = now.toUTCString();
-                utcTimeElement.textContent = `Current UTC Time: ${utcTime}`;
-            }
+        countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
 
-            updateTime(); // Run immediately
-            setInterval(updateTime, 1000); // Update every second
-        }
+      updateCountdown(); // Run immediately
+      const timerInterval = setInterval(updateCountdown, 1000);
+    }
 
-        // Set the target date and time for the countdown
-        const targetDate = new Date("2025-07-09T08:00:00").getTime();
-        startCountdown(targetDate);
-        updateCurrentUtcTime();
-    </script>
+    // Display Current UTC Time
+    function updateCurrentUtcTime() {
+      const utcTimeElement = document.getElementById("current-utc-time");
+
+      function updateTime() {
+        const now = new Date();
+        const utcTime = now.toUTCString();
+        utcTimeElement.textContent = `Current UTC Time: ${utcTime}`;
+      }
+
+      updateTime(); // Run immediately
+      setInterval(updateTime, 1000); // Update every second
+    }
+
+    // Set the target date and time for the countdown
+    const targetDate = new Date("2025-07-09T08:00:00").getTime();
+    startCountdown(targetDate);
+    updateCurrentUtcTime();
+  </script>
 </body>
 </html>
