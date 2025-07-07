@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Box Marble League - Vote</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Vote for Your Favorite Marble Team!</h1>
+  </header>
+
+  <form id="voteForm">
+    <label>
+      <input type="radio" name="voteOption" value="Blue Blizzards" required />
+      Blue Blizzards
+    </label>
+    <label>
+      <input type="radio" name="voteOption" value="Green Gliders" />
+      Green Gliders
+    </label>
+    <label>
+      <input type="radio" name="voteOption" value="Red Rockets" />
+      Red Rockets
+    </label>
+    <label>
+      <input type="radio" name="voteOption" value="Yellow Yetis" />
+      Yellow Yetis
+    </label>
+    <button type="submit">Submit Vote</button>
+  </form>
+
+  <p id="status"></p>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    // ✅ Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKH4eZVbKSNsL3k2_5S_E-Mey_349Qwx0",
+      authDomain: "ibml-draft.firebaseapp.com",
+      projectId: "ibml-draft",
+      storageBucket: "ibml-draft.firebasestorage.app",
+      messagingSenderId: "838059983974",
+      appId: "1:838059983974:web:2a62f1465e302ccde3d9a7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const form = document.getElementById('voteForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const selected = document.querySelector('input[name="voteOption"]:checked');
+      if (!selected) {
+        status.textContent = "Please select an option.";
+        return;
+      }
+
+      const vote = selected.value;
+
+      try {
+        await db.collection("votes").add({
+          option: vote,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        status.textContent = `Thanks for voting for ${vote}!`;
+        form.reset();
+      } catch (error) {
+        console.error("Error saving vote:", error);
+        status.textContent = "There was an error submitting your vote. Please try again.";
+      }
+    });
+  </script>
+</body>
+</html>
