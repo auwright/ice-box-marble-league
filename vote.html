@@ -6,6 +6,17 @@
   <title>Ice Box Marble League - Vote</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      position: relative;
+      padding: 20px;
+    }
+
     .top-right-image {
       position: absolute;
       top: 10px;
@@ -13,6 +24,70 @@
       width: 100px;
       height: auto;
       background: transparent;
+    }
+
+    /* Hamburger icon container */
+    .hamburger {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hamburger div {
+      width: 100%;
+      height: 4px;
+      background-color: #333;
+      transition: 0.4s;
+    }
+
+    /* Animate to X */
+    .hamburger.open div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.open div:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Side nav panel */
+    nav {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 220px;
+      height: 100%;
+      background-color: #f4f4f4;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+      padding: 60px 20px 20px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    nav.open {
+      left: 0;
+    }
+
+    nav a {
+      display: block;
+      margin: 15px 0;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .content {
+      padding: 20px;
     }
 
     form {
@@ -24,9 +99,9 @@
       margin: 8px 0;
       font-size: 1.1em;
     }
-    
+
     .green-text {
-        color: green;
+      color: green;
     }
 
     button {
@@ -42,11 +117,16 @@
 </head>
 <body>
   <header>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     <h1>IBML Vote Forum</h1>
     <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
   </header>
 
-  <nav>
+  <nav id="navMenu">
     <a href="index.html">Home</a>
     <a href="draft.html">Draft Board</a>
     <a href="current_standings.html">Current Standings</a>
@@ -60,7 +140,7 @@
       <h2>Vote on topics below, one vote per person please!</h2>
       <p><b>Roldo Incorporation - <span class="green-text">Vote Open</span></b></p>
       <p>Option 1: 1 point per Roldo find. After Event 16, most points wins. Prize is Where's Roldo t-shirt. Cost split by participants, roughly $2.30/person.</p>
-      <p>Option 2: 1 point per Roldo find. After Event 16, most points wins. Prize is 1st draft pick in the following years Marble league.</p>
+      <p>Option 2: 1 point per Roldo find. After Event 16, most points wins. Prize is 1st draft pick in the following year's Marble League.</p>
 
       <form id="voteForm">
         <label><input type="radio" name="voteOption" value="Option 1" required /> Option 1</label>
@@ -117,6 +197,15 @@
         console.error("Error saving vote:", error);
         status.textContent = "There was an error submitting your vote. Please try again.";
       }
+    });
+
+    // Fancy hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navMenu.classList.toggle('open');
     });
   </script>
 </body>
