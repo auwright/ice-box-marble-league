@@ -1,216 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previous League Results</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .top-right-image {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          width: 90px;
-          height: auto;
-          background: transparent;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Previous League Results</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .top-right-image {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 90px;
+      height: auto;
+      background: transparent;
+    }
+    /* Simple Hamburger Styles */
+    .hamburger {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      display: block;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .hamburger div {
+      width: 100%;
+      height: 4px;
+      background-color: #333;
+      margin: 5px 0;
+    }
+    nav {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 15px;
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 10px;
+      z-index: 1;
+    }
+    nav.open {
+      display: block;
+    }
+    nav a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Ice Box Marble League Previous Results</h1>
-        <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
-    </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="draft.html">Draft Board</a>
-        <a href="current_standings.html">Current Standings</a>
-        <a href="previous_results.html">Previous Results</a>
-        <a href="editable_stats.html">Historical Stats</a>
-    </nav>
-    <div class="content">
-    <div class="section">
-            <h2>IBML 2025 (TBD)</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Marbles (Captain)
-        				<img src="ibml_logo.png" width="20" height="20">
-                        </td>
-                       <td>TBD</td>
-        		    </tr>
-                    <tr>
-                       <td>2</td>
-                       <td>Marbles (Captain)
-        				<img src="ibml_logo.png" width="20" height="20">
-                        </td>
-                        <td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Marbles (Captain)
-        				<img src="ibml_logo.png" width="20" height="20">
-                        </td>
-                        <td>TBD</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>  
-        
-	<div class="section">
-            <h2>IBML 2024</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Team Momo (Jake)
-        				<img src="team_momo.png" width="20" height="20">
-                        </td>
-                        <td>179</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Black Jacks (Ronnie)
-        				<img src="black_jacks.png" width="20" height="20">
-                        </td>
-                        <td>158</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Solar Flares (Christian)
-        				<img src="solar_flares.png" width="20" height="20">
-                        </td>
-                        <td>137</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-	    
-        <div class="section">
-            <h2>IBML 2023</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Crazy Cat's Eyes (Jake)
-        				<img src="crazy_cats_eyes.png" width="20" height="20">
-                        </td>
-                        <td>172</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Bumblebees (Rob)
-        				<img src="bumblebees.png" width="20" height="20">
-                        </td>
-                        <td>171</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Savage Speeders (Shane)
-        				<img src="savage_speeders.png" width="20" height="20">
-                        </td>
-                        <td>169</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2>IBML 2022</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Pinkies (Jake) *R
-    		        	<img src="pinkies.png" width="20" height="20">
-                        </td>
-                        <td>195</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Shining Swarm (Ronnie)
-        				<img src="shining_swarm.png" width="20" height="20">
-                        </td>
-                        <td>182</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Team Galactic (Charlee)
-        				<img src="team_galactic.png" width="20" height="20">
-                        </td>
-                        <td>181</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-	<div class="section">
-            <h2>IBML 2021</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Raspberry Racers (Austin)
-                        <img src="raspberry_racers.png" width="20" height="20">
-                        </td>
-                        <td>157</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Hazers (Shane)
-        				<img src="hazers.png" width="20" height="20">
-                        </td>
-                        <td>149</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Thunderbolts (Jason)
-        				<img src="thunderbolts.png" width="20" height="20">
-                        </td>
-                        <td>145</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <header>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <footer>
-        <p>&copy; Ice Box Marble League. All rights reserved.</p>
-    </footer>
+    <h1>Ice Box Marble League Previous Results</h1>
+    <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
+  </header>
+
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="draft.html">Draft Board</a>
+    <a href="current_standings.html">Current Standings</a>
+    <a href="previous_results.html">Previous Results</a>
+    <a href="editable_stats.html">Historical Stats</a>
+  </nav>
+
+  <div class="content">
+    <div class="section">
+      <h2>IBML 2025 (TBD)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Marbles (Captain) <img src="ibml_logo.png" width="20" height="20"></td><td>TBD</td></tr>
+          <tr><td>2</td><td>Marbles (Captain) <img src="ibml_logo.png" width="20" height="20"></td><td>TBD</td></tr>
+          <tr><td>3</td><td>Marbles (Captain) <img src="ibml_logo.png" width="20" height="20"></td><td>TBD</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>IBML 2024</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Team Momo (Jake) <img src="team_momo.png" width="20" height="20"></td><td>179</td></tr>
+          <tr><td>2</td><td>Black Jacks (Ronnie) <img src="black_jacks.png" width="20" height="20"></td><td>158</td></tr>
+          <tr><td>3</td><td>Solar Flares (Christian) <img src="solar_flares.png" width="20" height="20"></td><td>137</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>IBML 2023</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Crazy Cat's Eyes (Jake) <img src="crazy_cats_eyes.png" width="20" height="20"></td><td>172</td></tr>
+          <tr><td>2</td><td>Bumblebees (Rob) <img src="bumblebees.png" width="20" height="20"></td><td>171</td></tr>
+          <tr><td>3</td><td>Savage Speeders (Shane) <img src="savage_speeders.png" width="20" height="20"></td><td>169</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>IBML 2022</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Pinkies (Jake) *R <img src="pinkies.png" width="20" height="20"></td><td>195</td></tr>
+          <tr><td>2</td><td>Shining Swarm (Ronnie) <img src="shining_swarm.png" width="20" height="20"></td><td>182</td></tr>
+          <tr><td>3</td><td>Team Galactic (Charlee) <img src="team_galactic.png" width="20" height="20"></td><td>181</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>IBML 2021</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Raspberry Racers (Austin) <img src="raspberry_racers.png" width="20" height="20"></td><td>157</td></tr>
+          <tr><td>2</td><td>Hazers (Shane) <img src="hazers.png" width="20" height="20"></td><td>149</td></tr>
+          <tr><td>3</td><td>Thunderbolts (Jason) <img src="thunderbolts.png" width="20" height="20"></td><td>145</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Ice Box Marble League. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+  </script>
 </body>
 </html>

@@ -1,209 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ice Box Marble League - League Standings</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .top-right-image {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          width: 100px;
-          height: auto;
-          background: transparent;
-        }
-        .gold-text {
-            color: gold;
-        }
-        .silver-text {
-            color: silver;
-        }
-        .bronze-text {
-            color: brown;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Box Marble League - League Standings</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .top-right-image {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: auto;
+      background: transparent;
+    }
+    .gold-text {
+      color: gold;
+    }
+    .silver-text {
+      color: silver;
+    }
+    .bronze-text {
+      color: brown;
+    }
+    /* Simple Hamburger Styles */
+    .hamburger {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      display: block;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .hamburger div {
+      width: 100%;
+      height: 4px;
+      background-color: #333;
+      margin: 5px 0;
+    }
+    nav {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 15px;
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 10px;
+      z-index: 1;
+    }
+    nav.open {
+      display: block;
+    }
+    nav a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <header>
-      <h1>Ice Box Marble League Current Standings</h1>
-      <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
-    </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="draft.html">Draft Board</a>
-        <a href="current_standings.html">Current Standings</a>
-        <a href="previous_results.html">Previous Results</a>
-        <a href="editable_stats.html">Historical Stats</a>
-    </nav>
-    <div class="content">
-        <div class="section">
-            <h2>Current Standings</h2>
-            <p>Here's how the teams are performing in the league:</p>
-            <p>*R means Rookie Season</p>
-            <table id="standingsTable">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Team</th>
-                        <th>Points</th>
-                        <th>Medals</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Savage Speeders (Shane)</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Balls of Chaos (Jason)</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>O'Rangers (Christian)</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Green Ducks (Jake)</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Raspberry Racers (Austin)</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Midnight Wisps (Logan V) *R</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Mellow Yellow (Breah) *R</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Limers (Ronnie)</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2>Current League Event Table</h2>
-            <p><span class="gold-text">G</span> = 1st Place, <span class="silver-text">S</span> = 2nd Place, <span class="bronze-text">B</span> = 3rd Place, DNP = Did Not Podium</p>
-            <table id="largeTable">
-                <thead>
-                    <tr>
-                        <th>Team</th>
-                        <th>Event 1</th>
-                        <th>Event 2</th>
-                        <th>Event 3</th>
-                        <th>Event 4</th>
-                        <th>Event 5</th>
-                        <th>Event 6</th>
-                        <th>Event 7</th>
-                        <th>Event 8</th>
-                        <th>Event 9</th>
-                        <th>Event 10</th>
-                        <th>Event 11</th>
-                        <th>Event 12</th>
-                        <th>Event 13</th>
-                        <th>Event 14</th>
-                        <th>Event 15</th>
-                        <th>Event 16</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Gold Entry <td class="gold-text">G</td> -->
-                    <!-- Silver Entry <td class="silver-text">S</td> -->
-                    <!-- Bronze Entry <td class="bronze-text">B</td> -->
-                    <!-- DNP Entry <td>DNP</td> -->
-                    <tr>
-                        <td>Savage Speeders (Shane)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>Balls of Chaos (Jason)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>O'Rangers (Christian)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>Green Ducks (Jake)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>Midnight Wisps (Logan V) *R</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>Raspberry Racers (Austin)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>Mellow Yellow (Breah) *R</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                    <tr>
-                       <td>Limers (Ronnie)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <header>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <footer>
-        <p>&copy; Ice Box Marble League. All rights reserved.</p>
-    </footer>
+    <h1>Ice Box Marble League Current Standings</h1>
+    <img src="ibml_logo.png" alt="League Logo" class="top-right-image">
+  </header>
 
-    <script>
-        window.onload = function() {
-            sortStandingsByPoints();
-            applyMedalText();
-        };
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="draft.html">Draft Board</a>
+    <a href="current_standings.html">Current Standings</a>
+    <a href="previous_results.html">Previous Results</a>
+    <a href="editable_stats.html">Historical Stats</a>
+    <a href="vote.html">Vote</a>
+  </nav>
 
-        function sortStandingsByPoints() {
-            const table = document.getElementById("standingsTable");
-            const tbody = table.querySelector("tbody");
-            const rows = Array.from(tbody.querySelectorAll("tr"));
+  <div class="content">
+    <div class="section">
+      <h2>Current Standings</h2>
+      <p>Here's how the teams are performing in the league:</p>
+      <p>*R means Rookie Season</p>
+      <table id="standingsTable">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+            <th>Medals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Savage Speeders (Shane)</td><td>0</td><td>0</td></tr>
+          <tr><td>2</td><td>Balls of Chaos (Jason)</td><td>0</td><td>0</td></tr>
+          <tr><td>3</td><td>O'Rangers (Christian)</td><td>0</td><td>0</td></tr>
+          <tr><td>4</td><td>Green Ducks (Jake)</td><td>0</td><td>0</td></tr>
+          <tr><td>5</td><td>Raspberry Racers (Austin)</td><td>0</td><td>0</td></tr>
+          <tr><td>6</td><td>Midnight Wisps (Logan V) *R</td><td>0</td><td>0</td></tr>
+          <tr><td>7</td><td>Mellow Yellow (Breah) *R</td><td>0</td><td>0</td></tr>
+          <tr><td>8</td><td>Limers (Ronnie)</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-            rows.sort((a, b) => {
-                const pointsA = parseInt(a.cells[2].textContent.trim(), 10);
-                const pointsB = parseInt(b.cells[2].textContent.trim(), 10);
-                return pointsB - pointsA;
-            });
+    <div class="section">
+      <h2>Current League Event Table</h2>
+      <p><span class="gold-text">G</span> = 1st Place, <span class="silver-text">S</span> = 2nd Place, <span class="bronze-text">B</span> = 3rd Place, DNP = Did Not Podium</p>
+      <table id="largeTable">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Event 1</th>
+            <th>Event 2</th>
+            <th>Event 3</th>
+            <th>Event 4</th>
+            <th>Event 5</th>
+            <th>Event 6</th>
+            <th>Event 7</th>
+            <th>Event 8</th>
+            <th>Event 9</th>
+            <th>Event 10</th>
+            <th>Event 11</th>
+            <th>Event 12</th>
+            <th>Event 13</th>
+            <th>Event 14</th>
+            <th>Event 15</th>
+            <th>Event 16</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Savage Speeders (Shane)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><td>Balls of Chaos (Jason)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><td>O'Rangers (Christian)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><td>Green Ducks (Jake)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><td>Midnight Wisps (Logan V) *R</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><td>Raspberry Racers (Austin)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><td>Mellow Yellow (Breah) *R</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><td>Limers (Ronnie)</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-            rows.forEach((row, index) => {
-                row.cells[0].textContent = index + 1;
-                tbody.appendChild(row);
-            });
+  <footer>
+    <p>&copy; Ice Box Marble League. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+
+    // Sorting and styling
+    window.onload = function() {
+      sortStandingsByPoints();
+      applyMedalText();
+    };
+
+    function sortStandingsByPoints() {
+      const table = document.getElementById("standingsTable");
+      const tbody = table.querySelector("tbody");
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+
+      rows.sort((a, b) => {
+        const pointsA = parseInt(a.cells[2].textContent.trim(), 10);
+        const pointsB = parseInt(b.cells[2].textContent.trim(), 10);
+        return pointsB - pointsA;
+      });
+
+      rows.forEach((row, index) => {
+        row.cells[0].textContent = index + 1;
+        tbody.appendChild(row);
+      });
+    }
+
+    function applyMedalText() {
+      const table = document.getElementById("largeTable");
+      const cells = table.querySelectorAll('td');
+
+      cells.forEach(cell => {
+        if (cell.textContent.trim() === "G") {
+          cell.classList.add('gold-text');
+        } else if (cell.textContent.trim() === "S") {
+          cell.classList.add('silver-text');
+        } else if (cell.textContent.trim() === "B") {
+          cell.classList.add('bronze-text');
         }
-
-        function applyMedalText() {
-            const table = document.getElementById("largeTable");
-            const cells = table.querySelectorAll('td');
-
-            cells.forEach(cell => {
-                if (cell.textContent.trim() === "G") {
-                    cell.classList.add('gold-text');
-                } else if (cell.textContent.trim() === "S") {
-                    cell.classList.add('silver-text');
-                } else if (cell.textContent.trim() === "B") {
-                    cell.classList.add('bronze-text');
-                }
-            });
-        }
-    </script>
+      });
+    }
+  </script>
 </body>
 </html>
-
