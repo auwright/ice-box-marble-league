@@ -54,7 +54,7 @@ nav {
   left: 15px;
   width: 200px;
   background: #f4f4f4;
-  border: 2px solid #14d92e;
+  border: 2px solid #06065e;
   padding: 10px;
   box-sizing: border-box;
   z-index: 1;
@@ -65,7 +65,7 @@ nav a {
   padding: 8px 0;
   text-decoration: none;
   color: #333;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #e8cb4a;
 }
 
 nav a:last-child {
